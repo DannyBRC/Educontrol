@@ -1,0 +1,299 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+* { box-sizing: border-box; }
+
+.login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e8edf8 0%, #f0f4ff 50%, #e8edf8 100%);
+  padding: 24px 16px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: fixed;
+    top: -200px;
+    right: -200px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(59,91,219,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  &::after {
+    content: '';
+    position: fixed;
+    bottom: -200px;
+    left: -200px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(124,58,237,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+}
+
+.login-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 44px 40px 36px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow:
+    0 0 0 1px rgba(59, 91, 219, 0.06),
+    0 4px 6px rgba(0,0,0,0.04),
+    0 20px 40px rgba(59, 91, 219, 0.10);
+  position: relative;
+  z-index: 1;
+  animation: fadeUp 0.4s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+
+  &-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #4f72f5, #3b5bdb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(59, 91, 219, 0.35);
+  }
+
+  &-name {
+    font-size: 20px;
+    font-weight: 800;
+    color: #0f1729;
+    letter-spacing: -0.4px;
+  }
+}
+
+.title {
+  font-size: 30px;
+  font-weight: 800;
+  color: #0f1729;
+  margin: 0 0 8px;
+  letter-spacing: -0.8px;
+  line-height: 1.15;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0 0 32px;
+  line-height: 1.5;
+}
+
+.field {
+  margin-bottom: 20px;
+
+  &-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 8px;
+    letter-spacing: 0.01em;
+  }
+
+  &-input {
+    width: 100%;
+    padding: 13px 16px;
+    font-size: 14px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #0f1729;
+    background: #f8faff;
+    border: 1.5px solid #e2e8f8;
+    border-radius: 12px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    box-sizing: border-box;
+
+    &::placeholder { color: #c0c8d8; }
+
+    &:hover { border-color: #c7d2fe; }
+
+    &:focus {
+      border-color: #3b5bdb;
+      background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(59, 91, 219, 0.10);
+    }
+  }
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input { padding-right: 48px; }
+
+.toggle-password {
+  position: absolute;
+  right: 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: #9ca3af;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  transition: color 0.2s, background 0.2s;
+
+  &:hover {
+    color: #3b5bdb;
+    background: #eef2ff;
+  }
+}
+
+.forgot-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -8px;
+  margin-bottom: 24px;
+}
+
+.forgot-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: #3b5bdb;
+  font-weight: 600;
+  padding: 0;
+  transition: opacity 0.2s;
+
+  &:hover { opacity: 0.7; text-decoration: underline; }
+}
+
+.error-msg {
+  font-size: 13px;
+  color: #dc2626;
+  background: #fef2f2;
+  border: 1.5px solid #fecaca;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #4f72f5, #3b5bdb);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.2s, opacity 0.2s;
+  box-shadow: 0 4px 14px rgba(59, 91, 219, 0.35);
+  letter-spacing: 0.2px;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(59, 91, 219, 0.45);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.98) translateY(0);
+    box-shadow: 0 2px 8px rgba(59, 91, 219, 0.3);
+  }
+
+  &:disabled { opacity: 0.65; cursor: not-allowed; }
+}
+
+.spinner-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2.5px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.demo-section {
+  margin-top: 28px;
+  text-align: center;
+}
+
+.demo-label {
+  display: block;
+  font-size: 12px;
+  color: #9ca3af;
+  font-weight: 500;
+  margin-bottom: 14px;
+  position: relative;
+
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 26%;
+    height: 1px;
+    background: #e5e7eb;
+  }
+  &::before { left: 0; }
+  &::after  { right: 0; }
+}
+
+.demo-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.demo-btn {
+  padding: 9px 22px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  cursor: pointer;
+  border: 1.5px solid;
+  background: transparent;
+  transition: background 0.18s, transform 0.1s;
+
+  &:hover { transform: translateY(-1px); }
+  &:active { transform: scale(0.97); }
+}
+
+.demo-admin      { color: #3b5bdb; border-color: #c7d2fe; &:hover { background: #eef2ff; } }
+.demo-profesor   { color: #7c3aed; border-color: #ddd6fe; &:hover { background: #f5f3ff; } }
+.demo-estudiante { color: #059669; border-color: #a7f3d0; &:hover { background: #ecfdf5; } }
+
+@media (max-width: 480px) {
+  .login-card { padding: 32px 24px 28px; }
+  .title { font-size: 26px; }
+  .demo-buttons { flex-direction: column; align-items: stretch; }
+}
