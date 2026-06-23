@@ -1,1 +1,524 @@
-<router-outlet />
+<!-- LOGIN -->
+<section class="login-page" *ngIf="pantalla === 'login'">
+  <div class="login-wrapper">
+
+    <!-- IZQUIERDA -->
+    <div class="login-form-side">
+      <div class="login-brand">
+        <div class="brand-square">🎓</div>
+        <h1>EduControl</h1>
+      </div>
+
+      <div class="login-title">
+        <h2>Bienvenido de vuelta</h2>
+        <p>Ingresa tus credenciales para acceder al sistema</p>
+      </div>
+
+      <form (ngSubmit)="iniciarSesion()">
+        <label>Correo electrónico</label>
+        <div class="field">
+          <input
+            type="email"
+            name="correo"
+            [(ngModel)]="correo"
+            placeholder="admin@educontrol.pe"
+          />
+        </div>
+
+        <label>Contraseña</label>
+        <div class="field password-field">
+          <input
+            type="password"
+            name="password"
+            [(ngModel)]="password"
+            placeholder="••••••••"
+          />
+          <span>👁️</span>
+        </div>
+
+        <a class="forgot">¿Olvidé mi contraseña?</a>
+
+        <div class="alert" *ngIf="error">
+          {{ error }}
+        </div>
+
+        <button class="login-btn" type="submit">
+          Iniciar Sesión
+        </button>
+      </form>
+
+      <div class="demo-line">
+        <span></span>
+        <p>Acceso de demostración</p>
+        <span></span>
+      </div>
+
+      <div class="demo-buttons">
+        <button type="button" (click)="demoAdmin()">Admin</button>
+        <button type="button" (click)="demoAdmin()">Profesor</button>
+        <button type="button" (click)="demoAdmin()">Estudiante</button>
+      </div>
+    </div>
+
+    <!-- DERECHA -->
+    <div class="login-info-side">
+      <div class="info-logo">🎓</div>
+
+      <h2>Gestión académica<br />inteligente</h2>
+
+      <p class="info-text">
+        EduControl centraliza estudiantes, profesores,
+        materias y calificaciones en un único panel moderno
+        y fácil de usar.
+      </p>
+
+      <div class="features">
+        <div>
+          <span>✓</span>
+          Control de asistencia en tiempo real
+        </div>
+
+        <div>
+          <span>✓</span>
+          Gestión completa de calificaciones
+        </div>
+
+        <div>
+          <span>✓</span>
+          Reportes académicos automatizados
+        </div>
+
+        <div>
+          <span>✓</span>
+          Portal independiente para estudiantes
+        </div>
+      </div>
+
+      <div class="info-stats">
+        <div>
+          <strong>385</strong>
+          <p>Estudiantes</p>
+        </div>
+
+        <div>
+          <strong>24</strong>
+          <p>Profesores</p>
+        </div>
+
+        <div>
+          <strong>18</strong>
+          <p>Materias</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- APP -->
+<section class="layout" *ngIf="pantalla !== 'login'">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">🎓</div>
+      <h2>EduControl</h2>
+    </div>
+
+    <p class="menu-title">PANEL ADMIN</p>
+
+    <nav>
+      <button [class.active]="pantalla === 'admin'" (click)="irA('admin')">
+        <span>▦</span> Dashboard
+      </button>
+
+      <button [class.active]="pantalla === 'estudiantes'" (click)="irA('estudiantes')">
+        <span>👥</span> Estudiantes
+      </button>
+
+      <button [class.active]="pantalla === 'profesores'" (click)="irA('profesores')">
+        <span>🎓</span> Profesores
+      </button>
+
+      <button [class.active]="pantalla === 'materias'" (click)="irA('materias')">
+        <span>📘</span> Materias
+      </button>
+
+      <button [class.active]="pantalla === 'horarios'" (click)="irA('horarios')">
+        <span>📅</span> Horarios
+      </button>
+
+      <button [class.active]="pantalla === 'calificaciones'" (click)="irA('calificaciones')">
+        <span>🏅</span> Calificaciones
+      </button>
+
+      <button [class.active]="pantalla === 'reportes'" (click)="irA('reportes')">
+        <span>📈</span> Reportes
+      </button>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <button>‹ Colapsar</button>
+      <button>⚙ Configuración</button>
+      <button (click)="cerrarSesion()">↪ Cerrar sesión</button>
+    </div>
+  </aside>
+
+  <!-- CONTENIDO -->
+  <main class="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div>
+        <h1 *ngIf="pantalla === 'admin'">Dashboard</h1>
+        <h1 *ngIf="pantalla === 'estudiantes'">Gestión de Estudiantes</h1>
+        <h1 *ngIf="pantalla === 'profesores'">Gestión de Profesores</h1>
+        <h1 *ngIf="pantalla === 'materias'">Gestión de Materias</h1>
+        <h1 *ngIf="pantalla === 'horarios'">Horarios</h1>
+        <h1 *ngIf="pantalla === 'calificaciones'">Calificaciones</h1>
+        <h1 *ngIf="pantalla === 'reportes'">Reportes</h1>
+
+        <p *ngIf="pantalla === 'admin'">Resumen académico 2026</p>
+        <p *ngIf="pantalla === 'estudiantes'">Administra el padrón estudiantil</p>
+        <p *ngIf="pantalla === 'profesores'">Administra el cuerpo docente</p>
+        <p *ngIf="pantalla === 'materias'">Materias del ciclo académico</p>
+        <p *ngIf="pantalla === 'horarios'">Organiza los horarios académicos</p>
+        <p *ngIf="pantalla === 'calificaciones'">Control de notas estudiantiles</p>
+        <p *ngIf="pantalla === 'reportes'">Análisis y estadísticas del sistema</p>
+      </div>
+
+      <div class="top-actions">
+        <div class="search">
+          🔍
+          <input type="text" placeholder="Buscar..." [(ngModel)]="busqueda" />
+        </div>
+
+        <button class="bell">🔔</button>
+
+        <div class="user">
+          <div class="avatar-user">AD</div>
+          <div>
+            <strong>Administrador</strong>
+            <p>Director Académico</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- DASHBOARD -->
+    <section *ngIf="pantalla === 'admin'" class="page">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-top">
+            <span class="icon blue">👥</span>
+            <small>+12%</small>
+          </div>
+          <h2>385</h2>
+          <p>Total Estudiantes</p>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-top">
+            <span class="icon purple">🎓</span>
+            <small>+2 nuevos</small>
+          </div>
+          <h2>24</h2>
+          <p>Total Profesores</p>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-top">
+            <span class="icon green">📘</span>
+            <small>este ciclo</small>
+          </div>
+          <h2>18</h2>
+          <p>Materias Activas</p>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-top">
+            <span class="icon orange">✅</span>
+            <small>+3% mes</small>
+          </div>
+          <h2>91%</h2>
+          <p>Asistencia Promedio</p>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="card large">
+          <div class="card-header">
+            <div>
+              <h3>Matrícula estudiantil</h3>
+              <p>Crecimiento mensual 2026</p>
+            </div>
+            <span class="badge green">+20.3% anual</span>
+          </div>
+
+          <div class="chart-line">
+            <div class="chart-row"></div>
+            <div class="chart-row"></div>
+            <div class="chart-row"></div>
+
+            <svg viewBox="0 0 600 180">
+              <polyline
+                points="0,145 120,115 240,105 360,75 480,50 600,20"
+                fill="none"
+                stroke="#2463eb"
+                stroke-width="4"
+              />
+              <circle cx="0" cy="145" r="5" />
+              <circle cx="120" cy="115" r="5" />
+              <circle cx="240" cy="105" r="5" />
+              <circle cx="360" cy="75" r="5" />
+              <circle cx="480" cy="50" r="5" />
+              <circle cx="600" cy="20" r="5" />
+            </svg>
+
+            <div class="months">
+              <span>Ene</span>
+              <span>Feb</span>
+              <span>Mar</span>
+              <span>Abr</span>
+              <span>May</span>
+              <span>Jun</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Asistencia semanal</h3>
+          <p>Porcentaje por día</p>
+
+          <div class="bars">
+            <div><span style="height: 75%"></span><p>Lun</p></div>
+            <div><span style="height: 62%"></span><p>Mar</p></div>
+            <div><span style="height: 88%"></span><p>Mié</p></div>
+            <div><span style="height: 59%"></span><p>Jue</p></div>
+            <div><span style="height: 40%"></span><p>Vie</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-grid">
+        <div class="card">
+          <div class="card-header">
+            <h3>Estudiantes recientes</h3>
+            <a (click)="irA('estudiantes')">Ver todos</a>
+          </div>
+
+          <div class="mini-list" *ngFor="let estudiante of estudiantes.slice(0, 3)">
+            <div class="circle">{{ estudiante.iniciales }}</div>
+            <div>
+              <strong>{{ estudiante.nombre }}</strong>
+              <p>{{ estudiante.curso }}</p>
+            </div>
+            <span [class]="promedioClase(estudiante.promedio)">
+              {{ estudiante.promedio }}
+            </span>
+          </div>
+        </div>
+
+        <div class="card calendar">
+          <div class="card-header">
+            <h3>Mayo de 2026</h3>
+            <div>‹ ›</div>
+          </div>
+
+          <div class="calendar-grid">
+            <span>D</span>
+            <span>L</span>
+            <span>M</span>
+            <span>M</span>
+            <span>J</span>
+            <span>V</span>
+            <span>S</span>
+
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button>7</button>
+            <button>8</button>
+            <button class="active-day">9</button>
+            <button>10</button>
+            <button>11</button>
+            <button>12</button>
+            <button>13</button>
+            <button>14</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ESTUDIANTES -->
+    <section *ngIf="pantalla === 'estudiantes'" class="page">
+      <div class="toolbar">
+        <div class="search small-search">
+          🔍
+          <input placeholder="Buscar estudiante..." />
+        </div>
+
+        <button class="primary">+ Agregar estudiante</button>
+      </div>
+
+      <div class="table-card">
+        <table>
+          <thead>
+            <tr>
+              <th>Estudiante</th>
+              <th>Correo</th>
+              <th>Curso</th>
+              <th>Promedio</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let estudiante of estudiantes">
+              <td>
+                <div class="person">
+                  <div class="circle">{{ estudiante.iniciales }}</div>
+                  <strong>{{ estudiante.nombre }}</strong>
+                </div>
+              </td>
+              <td>{{ estudiante.correo }}</td>
+              <td>{{ estudiante.curso }}</td>
+              <td>
+                <strong [class]="promedioClase(estudiante.promedio)">
+                  {{ estudiante.promedio }}
+                </strong>
+              </td>
+              <td>
+                <span class="status" [class.inactive]="estudiante.estado === 'Inactivo'">
+                  ● {{ estudiante.estado }}
+                </span>
+              </td>
+              <td class="actions">👁️ ✏️ 🗑️</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="table-footer">
+          <p>6 estudiantes encontrados</p>
+          <div>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROFESORES -->
+    <section *ngIf="pantalla === 'profesores'" class="page">
+      <div class="toolbar">
+        <div class="search small-search">
+          🔍
+          <input placeholder="Buscar profesor..." />
+        </div>
+
+        <button class="primary">+ Agregar profesor</button>
+      </div>
+
+      <div class="table-card">
+        <table>
+          <thead>
+            <tr>
+              <th>Profesor</th>
+              <th>Especialidad</th>
+              <th>Materias asignadas</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let profesor of profesores">
+              <td>
+                <div class="person">
+                  <div class="circle">{{ profesor.iniciales }}</div>
+                  <div>
+                    <strong>{{ profesor.nombre }}</strong>
+                    <p>{{ profesor.correo }}</p>
+                  </div>
+                </div>
+              </td>
+              <td>{{ profesor.especialidad }}</td>
+              <td>
+                <span class="tag" *ngFor="let materia of profesor.materias">
+                  {{ materia }}
+                </span>
+              </td>
+              <td>
+                <span class="status" [class.inactive]="profesor.estado === 'Inactivo'">
+                  ● {{ profesor.estado }}
+                </span>
+              </td>
+              <td class="actions">👁️ ✏️ 🗑️</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="table-footer">
+          <p>5 profesores en el sistema</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MATERIAS -->
+    <section *ngIf="pantalla === 'materias'" class="page">
+      <div class="toolbar right">
+        <button class="primary">+ Crear materia</button>
+      </div>
+
+      <div class="subjects-grid">
+        <div class="subject-card" *ngFor="let materia of materias">
+          <div class="subject-icon">📘</div>
+
+          <h3>{{ materia.nombre }}</h3>
+          <p>{{ materia.profesor }}</p>
+
+          <ul>
+            <li>🕘 {{ materia.horario }}</li>
+            <li>📍 {{ materia.aula }}</li>
+            <li>👥 {{ materia.estudiantes }} estudiantes matriculados</li>
+          </ul>
+
+          <div class="subject-actions">
+            <button>✏️</button>
+            <button>🗑️</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HORARIOS -->
+    <section *ngIf="pantalla === 'horarios'" class="page">
+      <div class="empty-card">
+        <h2>📅 Horarios</h2>
+        <p>Sección en desarrollo para organizar clases y aulas.</p>
+      </div>
+    </section>
+
+    <!-- CALIFICACIONES -->
+    <section *ngIf="pantalla === 'calificaciones'" class="page">
+      <div class="empty-card">
+        <h2>🏅 Calificaciones</h2>
+        <p>Sección en desarrollo para controlar notas y promedios.</p>
+      </div>
+    </section>
+
+    <!-- REPORTES -->
+    <section *ngIf="pantalla === 'reportes'" class="page">
+      <div class="empty-card">
+        <h2>📈 Reportes</h2>
+        <p>Sección en desarrollo para generar reportes académicos.</p>
+      </div>
+    </section>
+
+  </main>
+</section>
